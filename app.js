@@ -115,6 +115,22 @@ const update = async(body)=>{
     result.status = returnData.message
     return result
 }
+const deleteSensor = async (body) =>{
+    var result = new ModelReturndata.returndata()
+    const cypher = ` match (user:User{_id:'${body.id}'})
+    with user
+    optinal match (user)-[owner:owner]->(sensor:Sensor{_id:'${body._idSensor}'})
+    foreach(i in case wheb sensor is not null then[1] esle [] end | )
+    detach delete sensor
+    `
+
+    const returnData = await neo4j.query(cypher)
+    if(returnData.statusresponse){
+        result.data = (()=>{
+            var res = []
+        })
+    }
+} 
 const deleteUser = async(body)=>{
     var result = new ModelReturndata.returndata()
     const cypher = `
